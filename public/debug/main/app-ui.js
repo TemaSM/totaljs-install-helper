@@ -1,28 +1,28 @@
-Tangular.register('find_length', function(arr, key, val) {   
+Tangular.register('find_length', function (arr, key, val) {
     var arr = this;
-    var cnt = 0; 
-    for (e in arr) {         
-          if (arr[e][key] == val) cnt ++;
-    } 
+    var cnt = 0;
+    for (e in arr) {
+        if (arr[e][key] == val) cnt++;
+    }
     return cnt;
 });
 
- //request.answer | find("ID", 5, "R_ID") 
-Tangular.register('find', function(arr, key, val, keyout) {
+//request.answer | find("ID", 5, "R_ID") 
+Tangular.register('find', function (arr, key, val, keyout) {
     for (var i = 0; i < arr.length; i++) {
-      if (arr[i][key] == val) {
-        return arr[i][keyout];
-      }        
-    }      
-    return '';  
+        if (arr[i][key] == val) {
+            return arr[i][keyout];
+        }
+    }
+    return '';
 });
 
-COMPONENT('click', function() {
+COMPONENT('click', function () {
     var self = this;
 
     self.readonly();
 
-    self.click = function() {
+    self.click = function () {
         var value = self.attr('data-value');
         if (value) {
             self.set(self.parser(value));
@@ -31,17 +31,17 @@ COMPONENT('click', function() {
         self.get(self.attr('data-component-path'))(self);
     };
 
-    self.make = function() {
+    self.make = function () {
         self.element.on('click', self.click);
 
         var enter = self.attr('data-enter');
         if (!enter)
             return;
 
-        $(enter).on('keydown', 'input', function(e) {
+        $(enter).on('keydown', 'input', function (e) {
             if (e.keyCode !== 13)
                 return;
-            setTimeout(function() {
+            setTimeout(function () {
                 if (self.element.get(0).disabled === true)
                     return;
                 self.click();
@@ -50,13 +50,13 @@ COMPONENT('click', function() {
     };
 });
 
-COMPONENT('disable', function() {
+COMPONENT('disable', function () {
     var self = this;
     var condition = self.attr('data-if');
     var selector = 'input,texarea,select';
 
     self.readonly();
-    self.setter = function(value) {
+    self.setter = function (value) {
         var is = true;
 
         if (condition)
@@ -64,7 +64,7 @@ COMPONENT('disable', function() {
         else
             is = value ? false : true;
 
-        self.find(selector).each(function() {
+        self.find(selector).each(function () {
             var el = $(this);
             el.prop('disabled', is);
             // Disable the line below when you don't use ui-textbox, ui-dropdown, etc..
@@ -72,21 +72,21 @@ COMPONENT('disable', function() {
         });
     };
 
-    self.state = function(type) {
+    self.state = function (type) {
         self.setter(self.get());
     };
 });
 
-COMPONENT('page', function() {
+COMPONENT('page', function () {
     var self = this;
     var isProcessed = false;
     var template = self.element.attr('data-template');
 
-    self.hide = function() {
+    self.hide = function () {
         self.set('');
     };
 
-    self.setter = function(value) {
+    self.setter = function (value) {
         var el = self.element;
         var is = el.attr('data-if') == value;
 
@@ -101,12 +101,12 @@ COMPONENT('page', function() {
             return;
         }
 
-        INJECT(template, el, function() {
+        INJECT(template, el, function () {
             var init = el.attr('data-init');
 
             if (init) {
                 var fn = GET(init || '');
-                if (typeof(fn) === 'function')
+                if (typeof (fn) === 'function')
                     fn(self);
             }
 
@@ -119,10 +119,10 @@ COMPONENT('page', function() {
     self.getter = null;
 });
 
-COMPONENT('ready', function() {
+COMPONENT('ready', function () {
     var self = this;
-    self.make = function() {
-        setTimeout(function() {
+    self.make = function () {
+        setTimeout(function () {
             self.element.removeClass('ui-ready-preloader');
             self.element.find('div:first-child').removeClass('ui-ready-hidden');
         }, 500);
@@ -133,19 +133,19 @@ COMPONENT('ready', function() {
     self.getter = null;
 });
 
-COMPONENT('length', function() {
+COMPONENT('length', function () {
     var self = this;
 
     self.readonly();
 
-    self.setter = function(value) {
+    self.setter = function (value) {
         var key = self.attr('data-key');
         var val = self.attr('data-value');
 
         if (typeof value === 'undefined') {
-          self.element.html(''); 
-          return;
-        }               
+            self.element.html('');
+            return;
+        }
 
         if (!key && !val) {
             self.html(value.length);
@@ -154,8 +154,8 @@ COMPONENT('length', function() {
 
         var count = 0;
 
-        value.forEach(function(item) {
-            Object.keys(item).forEach(function(k) {
+        value.forEach(function (item) {
+            Object.keys(item).forEach(function (k) {
                 if (k !== key)
                     return;
                 if (val) {
@@ -170,16 +170,16 @@ COMPONENT('length', function() {
     };
 });
 
-COMPONENT('textbox', function() {
+COMPONENT('textbox', function () {
 
     var self = this;
     var isRequired = self.attr('data-required') === 'true';
 
     // A global formatter
-    self.validate = function(value) {
+    self.validate = function (value) {
 
         var is = false;
-        var t = typeof(value);
+        var t = typeof (value);
 
         // Control is disabled
         if (self.element.find('input').prop('disabled'))
@@ -194,7 +194,7 @@ COMPONENT('textbox', function() {
         return is;
     };
 
-    self.make = function() {
+    self.make = function () {
 
         var attrs = [];
 
@@ -203,7 +203,7 @@ COMPONENT('textbox', function() {
             if (!a)
                 return;
             attrs.push(name.substring(name.indexOf('-') + 1) + '="' + a + '"');
-        }        
+        }
         var el = self.element;
         attr('readonly');
         attr('data-placeholder');
@@ -216,7 +216,7 @@ COMPONENT('textbox', function() {
         var align = element.attr('data-align');
         var cicon = element.attr('data-control-icon');
         self.type = element.attr('type') ? element.attr('type') : 'text';
-        var html = '<input type="' + self.type + '" data-component-bind=""' + (attrs.length ? ' ' + attrs.join('') : '') + (id ? ' id="' + id + '"' : '') + (align ? ' class="' + align + '"' : '')  + (element.attr('data-autofocus') === 'true' ? ' autofocus="autofocus"' : '') + ' />' + (cicon ? '<div><span class="fa ' + cicon + '"></span></div>' : '');
+        var html = '<input type="' + self.type + '" data-component-bind=""' + (attrs.length ? ' ' + attrs.join('') : '') + (id ? ' id="' + id + '"' : '') + (align ? ' class="' + align + '"' : '') + (element.attr('data-autofocus') === 'true' ? ' autofocus="autofocus"' : '') + ' />' + (cicon ? '<div><span class="fa ' + cicon + '"></span></div>' : '');
 
         if (content.length === 0) {
             element.addClass('ui-textbox');
@@ -227,21 +227,21 @@ COMPONENT('textbox', function() {
         element.html('<div class="ui-textbox-label' + (isRequired ? ' ui-textbox-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div><div class="ui-textbox">' + html + '</div>');
     };
 
-    self.state = function(type) {
+    self.state = function (type) {
         self.element.find('.ui-textbox').toggleClass('ui-textbox-invalid', self.isInvalid());
     };
 });
 
 
 
-COMPONENT('textarea', function() {
+COMPONENT('textarea', function () {
 
     var self = this;
     var isRequired = self.attr('data-required') === 'true';
 
-    this.validate = function(value) {
+    this.validate = function (value) {
         var is = false;
-        var t = typeof(value);
+        var t = typeof (value);
 
         if (t === 'undefined' || t === 'object')
             value = '';
@@ -252,7 +252,7 @@ COMPONENT('textarea', function() {
         return is;
     };
 
-    self.make = function() {
+    self.make = function () {
 
         var attrs = [];
 
@@ -285,12 +285,12 @@ COMPONENT('textarea', function() {
         element.append('<div class="ui-textarea">' + html + '</div>');
     };
 
-    self.state = function(type) {
+    self.state = function (type) {
         self.element.find('.ui-textarea').toggleClass('ui-textarea-invalid', self.isInvalid());
     };
 });
 
-COMPONENT('dropdown', function() {
+COMPONENT('dropdown', function () {
 
     var self = this;
     var element = self.element;
@@ -298,9 +298,9 @@ COMPONENT('dropdown', function() {
     var isEmpty = element.attr('data-empty') === 'true';
     var datasource = '';
 
-    this.validate = function(value) {
+    this.validate = function (value) {
         var is = false;
-        var t = typeof(value);
+        var t = typeof (value);
         if (t === 'undefined' || t === 'object')
             value = '';
         else
@@ -312,7 +312,7 @@ COMPONENT('dropdown', function() {
     self.optText = element.attr('data-source-text') || 'name';
     self.optValue = element.attr('data-source-value') || 'id';
 
-    self.render = function(arr) {
+    self.render = function (arr) {
         var el = element.find('select').empty();
         var builder = [];
         var kk = self.optText;
@@ -324,7 +324,7 @@ COMPONENT('dropdown', function() {
 
         for (var i = 0, length = arr.length; i < length; i++) {
             var item = arr[i];
-            if (typeof(item) === 'string')
+            if (typeof (item) === 'string')
                 builder.push('<option value="' + item + '"' + (value == item ? ' selected="selected"' : '') + '>' + item + '</option>');
             else
                 builder.push('<option value="' + item[kv] + '"' + (value == item[kv] ? ' selected="selected"' : '') + '>' + item[kk] + '</option>');
@@ -333,7 +333,7 @@ COMPONENT('dropdown', function() {
         el.html(builder.join(''));
     };
 
-    this.make = function() {
+    this.make = function () {
 
         var options = [];
         var element = self.element;
@@ -363,7 +363,7 @@ COMPONENT('dropdown', function() {
         if (!path)
             return;
 
-        var prerender = function(path) {
+        var prerender = function (path) {
             var value = self.get(datasource);
             if (value === undefined || value === null)
                 value = [];
@@ -374,12 +374,12 @@ COMPONENT('dropdown', function() {
         prerender(null, self.get(path));
     };
 
-    this.state = function(type) {
+    this.state = function (type) {
         element.find('.ui-dropdown').toggleClass('ui-dropdown-invalid', self.isInvalid());
     };
 });
 
-COMPONENT('select', function() {
+COMPONENT('select', function () {
 
     var self = this;
     var element = self.element;
@@ -387,9 +387,9 @@ COMPONENT('select', function() {
     var isEmpty = element.attr('data-empty') === 'true';
     var datasource = '';
 
-    this.validate = function(value) {
+    this.validate = function (value) {
         var is = false;
-        var t = typeof(value);
+        var t = typeof (value);
         if (t === 'undefined' || t === 'object')
             value = '';
         else
@@ -401,22 +401,22 @@ COMPONENT('select', function() {
     self.optText = element.attr('data-source-text') || 'name';
     self.optValue = element.attr('data-source-value') || 'id';
 
-    self.render = function(arr) {
+    self.render = function (arr) {
         var el = element.find('select').empty();
         var builder = [];
         var kk = self.optText;
         var kv = self.optValue;
         var value = self.get();
 
-	if (element.attr('data-placeholder')) 
-            builder.push('<option value="" disabled selected>'+element.attr('data-placeholder')+'</option>');	
+        if (element.attr('data-placeholder'))
+            builder.push('<option value="" disabled selected>' + element.attr('data-placeholder') + '</option>');
 
         if (isEmpty)
             builder.push('<option value=""></option>');
 
         for (var i = 0, length = arr.length; i < length; i++) {
             var item = arr[i];
-            if (typeof(item) === 'string')
+            if (typeof (item) === 'string')
                 builder.push('<option value="' + item + '"' + (value == item ? ' selected="selected"' : '') + '>' + item + '</option>');
             else
                 builder.push('<option value="' + item[kv] + '"' + (value == item[kv] ? ' selected="selected"' : '') + '>' + item[kk] + '</option>');
@@ -425,7 +425,7 @@ COMPONENT('select', function() {
         el.html(builder.join(''));
     };
 
-    this.make = function() {
+    this.make = function () {
 
         var options = [];
         var element = self.element;
@@ -442,7 +442,7 @@ COMPONENT('select', function() {
         var multiple = element.attr('data-multiple');
         var size = element.attr('data-size');
         var style = element.attr('data-style');
-        var html = '<select data-component-bind=""'+(align ? ' class="' + align + '"' : '')+(multiple ? ' multiple="' + multiple + '"' : '')+(size ? ' size="' + size + '"' : '')+(style ? ' style="' + style + '"' : '')+'>' + options.join('') + '</select>';        
+        var html = '<select data-component-bind=""' + (align ? ' class="' + align + '"' : '') + (multiple ? ' multiple="' + multiple + '"' : '') + (size ? ' size="' + size + '"' : '') + (style ? ' style="' + style + '"' : '') + '>' + options.join('') + '</select>';
 
         if (content.length > 0) {
             element.empty();
@@ -459,7 +459,7 @@ COMPONENT('select', function() {
         if (!path)
             return;
 
-        var prerender = function(path) {	    
+        var prerender = function (path) {
             var value = self.get(datasource);
             if (value === undefined || value === null)
                 value = [];
@@ -470,13 +470,13 @@ COMPONENT('select', function() {
         prerender(null, self.get(path));
     };
 
-    this.state = function(type) {
+    this.state = function (type) {
         element.find('.ui-dropdown').toggleClass('ui-dropdown-invalid', self.isInvalid());
     };
 });
 
 
-COMPONENT('validation', function() {
+COMPONENT('validation', function () {
 
     var self = this;
     var path;
@@ -484,7 +484,7 @@ COMPONENT('validation', function() {
 
     self.readonly();
 
-    self.make = function() {
+    self.make = function () {
         elements = self.find(self.attr('data-selector') || 'button');
         elements.prop({ disabled: true });
         self.evaluate = self.attr('data-if');
@@ -492,16 +492,16 @@ COMPONENT('validation', function() {
         self.watch(self.path, self.state, true);
     };
 
-    self.state = function() {
+    self.state = function () {
         var disabled = jC.disabled(path);
-        if (disabled && self.evaluate) 
+        if (disabled && self.evaluate)
             disabled = !EVALUATE(self.path, self.evaluate);
 
         elements.prop({ disabled: disabled });
     };
 });
 
-COMPONENT('confirm', function() {
+COMPONENT('confirm', function () {
     var self = this;
     var is = false;
     var visible = false;
@@ -510,25 +510,25 @@ COMPONENT('confirm', function() {
     self.readonly();
     self.singleton();
 
-    self.make = function() {
+    self.make = function () {
         self.element.addClass('ui-confirm hidden');
-        self.element.on('click', 'button', function() {
+        self.element.on('click', 'button', function () {
             self.hide($(this).attr('data-index').parseInt());
         });
     };
 
-    self.confirm = function(message, buttons, fn) {
+    self.confirm = function (message, buttons, fn) {
         self.callback = fn;
 
         var builder = [];
 
-        buttons.forEach(function(item, index) {
+        buttons.forEach(function (item, index) {
             builder.push('<button data-index="{1}">{0}</button>'.format(item, index));
         });
 
         self.content('ui-confirm-warning', '<div class="ui-confirm-message">{0}</div>{1}'.format(message.replace(/\n/g, '<br />'), builder.join('')));
 
-	$(window).on('keyup', function(e) {
+        $(window).on('keyup', function (e) {
             if (!visible)
                 return;
             if (e.keyCode === 27)
@@ -536,7 +536,7 @@ COMPONENT('confirm', function() {
         });
     };
 
-    self.hide = function(index) {
+    self.hide = function (index) {
 
         if (self.callback)
             self.callback(index);
@@ -544,13 +544,13 @@ COMPONENT('confirm', function() {
         self.element.removeClass('ui-confirm-visible');
         if (timer)
             clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             visible = false;
             self.element.addClass('hidden');
         }, 1000);
     };
 
-    self.content = function(cls, text) {
+    self.content = function (cls, text) {
 
         if (!is)
             self.html('<div><div class="ui-confirm-body"></div></div>');
@@ -561,17 +561,17 @@ COMPONENT('confirm', function() {
         visible = true;
         self.element.find('.ui-confirm-body').empty().append(text);
         self.element.removeClass('hidden');
-        setTimeout(function() {
+        setTimeout(function () {
             self.element.addClass('ui-confirm-visible');
         }, 5);
     };
 });
 
-COMPONENT('visible', function() {
+COMPONENT('visible', function () {
     var self = this;
     var condition = self.attr('data-if');
     self.readonly();
-    self.setter = function(value) {
+    self.setter = function (value) {
 
         var is = true;
 
@@ -584,14 +584,14 @@ COMPONENT('visible', function() {
     };
 });
 
-COMPONENT('checkbox', function() {
+COMPONENT('checkbox', function () {
 
     var self = this;
     var isRequired = self.element.attr('data-required') === 'true';
 
-    self.validate = function(value) {
+    self.validate = function (value) {
         var is = false;
-        var t = typeof(value);
+        var t = typeof (value);
 
         if (t === 'undefined' || t === 'object')
             value = '';
@@ -602,7 +602,7 @@ COMPONENT('checkbox', function() {
         return is;
     };
 
-    self.make = function() {
+    self.make = function () {
         var element = self.element;
         var html = '<label><input type="checkbox" data-component-bind="" /> <span' + (isRequired ? ' class="ui-checkbox-label-required"' : '') + '>' + element.html() + '</span></label>';
         element.addClass('ui-checkbox');
@@ -616,11 +616,11 @@ COMPONENT('checkbox', function() {
     });*/
 });
 
-COMPONENT('template', function() {
+COMPONENT('template', function () {
 
     var self = this;
 
-    self.make = function(template) {
+    self.make = function (template) {
 
         if (template) {
             self.template = Tangular.compile(template);
@@ -632,27 +632,27 @@ COMPONENT('template', function() {
         script.remove();
     };
 
-    self.setter = function(value) {
+    self.setter = function (value) {
         if (!value && !self.element.attr('data-error'))
             return self.element.hide();
         self.element.html(self.template(value)).show();
     };
 });
 
-COMPONENT('repeater', function() {
+COMPONENT('repeater', function () {
 
     var self = this;
-    self.make = function() {
-//	console.log(self.element);
+    self.make = function () {
+        //	console.log(self.element);
         var element = self.element.find('script');
         var html = element.html();
-//	console.log(html);
+        //	console.log(html);
         element.remove();
         self.template = Tangular.compile(html);
     };
 
     self.getter = null;
-    self.setter = function(value) {
+    self.setter = function (value) {
 
         if (!value || value.length === 0) {
             self.element.html('');
@@ -665,41 +665,41 @@ COMPONENT('repeater', function() {
             item.index = i;
             builder += self.template(item).replace(/\$index/g, i.toString()).replace(/\$/g, self.path + '[' + i + ']');
         }
-        
+
         /*if (self.element.attr('data-output')) {
 	  var output = self.get(self.attr('data-output'));       
           self.html(output(value));
-        }*/  
+        }*/
 
         self.element.empty().append(builder);
 
-        if (builder.indexOf('data-component="') !== -1) 
-          $.components.compile();
+        if (builder.indexOf('data-component="') !== -1)
+            $.components.compile();
         else $.components();
     };
-	
-    self.element.on('click', 'tr', function(e) {
-	if (!$(e.target).closest('.btn-group, .btn, a').length) {                               
-//		console.log(self.attr('data-click'));
-        	var fn = self.get(self.attr('data-click'));
-//		console.log(fn);
-	        if (fn) {
-        	     fn(this);
-	        } 
-	}
+
+    self.element.on('click', 'tr', function (e) {
+        if (!$(e.target).closest('.btn-group, .btn, a').length) {
+            //		console.log(self.attr('data-click'));
+            var fn = self.get(self.attr('data-click'));
+            //		console.log(fn);
+            if (fn) {
+                fn(this);
+            }
+        }
     });
 });
 
-COMPONENT('error', function() {
+COMPONENT('error', function () {
     var self = this;
     var element;
 
-    self.make = function() {
+    self.make = function () {
         self.element.append('<ul class="ui-error hidden"></ul>');
         element = self.element.find('ul');
     };
 
-    self.setter = function(value) {
+    self.setter = function (value) {
 
         if (!(value instanceof Array) || value.length === 0) {
             element.toggleClass('hidden', true);
@@ -715,7 +715,7 @@ COMPONENT('error', function() {
     };
 });
 
-COMPONENT('colorselector', function() {
+COMPONENT('colorselector', function () {
 
     var self = this;
     var colors = ['#DA4453', '#E9573F', '#F6BB42', '#8CC152', '#37BC9B', '#3BAFDA', '#4A89DC', '#967ADC', '#D770AD', '#656D78'];
@@ -723,14 +723,14 @@ COMPONENT('colorselector', function() {
     var list;
     var required = self.attr('data-required') === 'true';
 
-    self.validate = function(value) {
+    self.validate = function (value) {
         return colors.indexOf(value) === -1
     };
 
     if (!required)
         self.noValid();
 
-    self.make = function() {
+    self.make = function () {
         var builder = [];
         var html = self.html();
 
@@ -745,14 +745,14 @@ COMPONENT('colorselector', function() {
         self.html(builder.join(''));
         list = self.find('li');
 
-        self.element.on('click', 'li', function(e) {
+        self.element.on('click', 'li', function (e) {
             var li = $(this);
             self.change(true);
             self.set(colors[parseInt(li.attr('data-index'))]);
         });
     };
 
-    self.setter = function(value) {
+    self.setter = function (value) {
         var index = colors.indexOf(value);
         if (selected)
             selected.removeClass('selected');
@@ -763,7 +763,7 @@ COMPONENT('colorselector', function() {
     };
 });
 
-COMPONENT('crop', function() {
+COMPONENT('crop', function () {
     var self = this;
     var width, height, canvas, context;
     var img = new Image();
@@ -796,7 +796,7 @@ COMPONENT('crop', function() {
             nw = ((img.width * (p / 100)) / 2) >> 0;
         }
 
-         // centering
+        // centering
         cache.x = current.x = (width / 2) - nw;
         cache.y = current.y = (height / 2) - nh;
         cache.zoom = zoom;
@@ -804,14 +804,14 @@ COMPONENT('crop', function() {
         self.redraw();
     };
 
-    self.resize = function(w, h) {
+    self.resize = function (w, h) {
         width = w;
         height = h;
         canvas.width = w;
         canvas.height = h;
     };
 
-    self.output = function(type) {
+    self.output = function (type) {
         if (type)
             return canvas.toDataURL(type);
         if (!bgcolor && isTransparent(context))
@@ -819,7 +819,7 @@ COMPONENT('crop', function() {
         return canvas.toDataURL('image/jpeg');
     };
 
-    self.make = function() {
+    self.make = function () {
 
         bgcolor = self.attr('data-background');
         width = parseInt(self.attr('data-width') || 0);
@@ -830,7 +830,7 @@ COMPONENT('crop', function() {
         canvas = self.find('canvas').get(0);
         context = canvas.getContext('2d');
 
-        self.element.on('click', 'li', function(e) {
+        self.element.on('click', 'li', function (e) {
 
             e.preventDefault();
             e.stopPropagation();
@@ -849,7 +849,7 @@ COMPONENT('crop', function() {
                     current.x -= 5;
                     current.y -= 5;
                     self.redraw();
-                break;
+                    break;
                 case 'minus':
                     zoom -= 5;
                     if (zoom < 5)
@@ -868,14 +868,14 @@ COMPONENT('crop', function() {
 
         });
 
-        self.find('input').on('change', function() {
+        self.find('input').on('change', function () {
             var file = this.files[0];
             var reader = new FileReader();
 
             reader.onload = function () {
                 img.src = reader.result;
-		//console.log(img.src);
-                setTimeout(function() {
+                //console.log(img.src);
+                setTimeout(function () {
                     self.change();
                 }, 500);
             };
@@ -928,7 +928,7 @@ COMPONENT('crop', function() {
 
                 reader.onload = function () {
                     img.src = reader.result;
-                    setTimeout(function() {
+                    setTimeout(function () {
                         self.change();
                     }, 500);
                 };
@@ -959,7 +959,7 @@ COMPONENT('crop', function() {
         });
     };
 
-    self.redraw = function() {
+    self.redraw = function () {
 
         var w = img.width;
         var h = img.height;
@@ -978,7 +978,7 @@ COMPONENT('crop', function() {
             context.drawImage(img, current.x || 0, current.y || 0, w, h);
     };
 
-    self.setter = function(value) {
+    self.setter = function (value) {
 
         if (!value) {
             can = false;
@@ -992,16 +992,16 @@ COMPONENT('crop', function() {
     function isTransparent(ctx) {
         var id = ctx.getImageData(0, 0, width, height);
         for (var i = 0, length = id.data.length; i < length; i += 4)
-        if (id.data[i + 3] !== 255) return true;
+            if (id.data[i + 3] !== 255) return true;
         return false;
     }
 });
 
-COMPONENT('radiobutton', function() {
+COMPONENT('radiobutton', function () {
     var self = this;
     var required;
 
-    self.make = function() {
+    self.make = function () {
         var options = self.attr('data-options').split(';');
         var builder = [];
         var html = self.html();
@@ -1011,13 +1011,13 @@ COMPONENT('radiobutton', function() {
         if (html)
             builder.push('<div class="ui-radiobutton-label{1}">{0}</div>'.format(html, required ? ' ui-radiobutton-label-required' : ''));
 
-        options.forEach(function(item) {
+        options.forEach(function (item) {
             item = item.split('|');
             builder.push('<span data-value="{0}"><i class="fa fa-circle-o"></i>{1}</span>'.format(item[0] || item[1], item[1] || item[0]));
         });
 
         self.element.addClass('ui-radiobutton');
-        self.element.on('click', 'span', function(e) {
+        self.element.on('click', 'span', function (e) {
             var value = self.parser($(this).attr('data-value'));
             self.dirty(false, true);
             self.getter(value, 2);
@@ -1026,14 +1026,14 @@ COMPONENT('radiobutton', function() {
         self.html(builder.join(''));
     };
 
-    self.validate = function(value) {
+    self.validate = function (value) {
         if (!required)
             return true;
         return value ? true : false;
     };
 
-    self.setter = function(value, path) {
-        self.element.find('span').each(function() {
+    self.setter = function (value, path) {
+        self.element.find('span').each(function () {
             var el = $(this);
             var is = el.attr('data-value') === (value === null || value === undefined ? null : value.toString());
             el.toggleClass('ui-radiobutton-selected', is);
@@ -1042,7 +1042,7 @@ COMPONENT('radiobutton', function() {
     };
 });
 
-COMPONENT('autocomplete', function() {
+COMPONENT('autocomplete', function () {
     var self = this;
     var container;
     var old;
@@ -1058,12 +1058,12 @@ COMPONENT('autocomplete', function() {
     self.readonly();
     self.singleton();
 
-    self.make = function() {
+    self.make = function () {
         self.element.addClass('ui-autocomplete-container');
         self.element.html('<div class="ui-autocomplete"><ul></ul></div>');
         container = self.element.find('ul');
 
-        self.element.on('click', 'li', function(e) {
+        self.element.on('click', 'li', function (e) {
             e.preventDefault();
             e.stopPropagation();
             if (onCallback)
@@ -1071,11 +1071,11 @@ COMPONENT('autocomplete', function() {
             self.visible(false);
         });
 
-        self.element.on('mouseenter mouseleave', 'li', function(e) {
+        self.element.on('mouseenter mouseleave', 'li', function (e) {
             $(this).toggleClass('selected', e.type === 'mouseenter');
         });
 
-        $(document).on('click', function(e) {
+        $(document).on('click', function (e) {
             if (is)
                 self.visible(false);
         });
@@ -1089,12 +1089,12 @@ COMPONENT('autocomplete', function() {
             if (c !== 8 && c < 32)
                 return;
             clearTimeout(searchtimeout);
-            searchtimeout = setTimeout(function() {
+            searchtimeout = setTimeout(function () {
                 var val = input.value;
                 if (!val || searchvalue === val)
                     return;
                 searchvalue = val;
-                onSearch(val, function(value) { self.render(value); });
+                onSearch(val, function (value) { self.render(value); });
             }, 200);
             return;
         }
@@ -1126,18 +1126,18 @@ COMPONENT('autocomplete', function() {
 
     function blur() {
         clearTimeout(blurtimeout);
-        blurtimeout = setTimeout(function() {
+        blurtimeout = setTimeout(function () {
             self.visible(false);
         }, 300);
     }
 
-    self.visible = function(visible) {
+    self.visible = function (visible) {
         clearTimeout(blurtimeout);
         self.element.toggleClass('hidden', !visible);
         is = visible;
     };
 
-    self.attach = function(input, search, callback, top, left, width) {
+    self.attach = function (input, search, callback, top, left, width) {
 
         clearTimeout(searchtimeout);
 
@@ -1158,18 +1158,18 @@ COMPONENT('autocomplete', function() {
         input.attr({ 'autocomplete': 'off' });
 
         old = input;
-/*        console.log(input.offset());
-        console.log(input.height());
-        console.log(input.width());*/
+        /*        console.log(input.offset());
+                console.log(input.height());
+                console.log(input.width());*/
 
         var offset = input.offset();
         offset.top += input.height();
         offset.width = input.width();
 
         if (left)
-//            offset.left += left;
-        if (top)
-            offset.top += top;
+            //            offset.left += left;
+            if (top)
+                offset.top += top;
         if (width)
             offset.width += width;
 
@@ -1182,7 +1182,7 @@ COMPONENT('autocomplete', function() {
         self.visible(false);
     };
 
-    self.render = function(arr) {
+    self.render = function (arr) {
 
         datasource = arr;
 
@@ -1203,7 +1203,7 @@ COMPONENT('autocomplete', function() {
     };
 });
 
-COMPONENT('dropdowncheckbox', function() {
+COMPONENT('dropdowncheckbox', function () {
 
     var self = this;
     var required = self.element.attr('data-required') === 'true';
@@ -1217,11 +1217,11 @@ COMPONENT('dropdowncheckbox', function() {
 
     var template = window.$dropdowncheckboxtemplate;
 
-    self.validate = function(value) {
+    self.validate = function (value) {
         return required ? value && value.length > 0 : true;
     };
 
-    self.make = function() {
+    self.make = function () {
 
         var options = [];
         var element = self.element;
@@ -1252,7 +1252,7 @@ COMPONENT('dropdowncheckbox', function() {
         container = self.element.find('.ui-dropdowncheckbox-values');
         values = self.element.find('.ui-dropdowncheckbox-selected');
 
-        self.element.on('click', '.ui-dropdowncheckbox', function(e) {
+        self.element.on('click', '.ui-dropdowncheckbox', function (e) {
 
             var el = $(this);
             if (el.hasClass('ui-disabled'))
@@ -1271,7 +1271,7 @@ COMPONENT('dropdowncheckbox', function() {
             e.stopPropagation();
         });
 
-        self.element.on('click', 'input,label', function(e) {
+        self.element.on('click', 'input,label', function (e) {
 
             e.stopPropagation();
 
@@ -1308,7 +1308,7 @@ COMPONENT('dropdowncheckbox', function() {
             return;
 
         self.watch(ds, prepare);
-        setTimeout(function() {
+        setTimeout(function () {
             prepare(ds, GET(ds));
         }, 500);
     };
@@ -1331,7 +1331,7 @@ COMPONENT('dropdowncheckbox', function() {
 
         data = [];
         for (var i = 0, length = value.length; i < length; i++) {
-            var isString = typeof(value[i]) === 'string';
+            var isString = typeof (value[i]) === 'string';
             var item = { value: isString ? value[i] : value[i][kv], text: isString ? value[i] : value[i][kt], index: i };
             data.push(item);
             builder += template(item);
@@ -1345,7 +1345,7 @@ COMPONENT('dropdowncheckbox', function() {
         self.setter(self.get());
     }
 
-    self.setter = function(value) {
+    self.setter = function (value) {
 
         if (NOTMODIFIED(self.id, value))
             return;
@@ -1388,7 +1388,7 @@ COMPONENT('dropdowncheckbox', function() {
                 MAN.set(self.path, value);
         }
 
-        container.find('input').each(function() {
+        container.find('input').each(function () {
             var index = parseInt(this.value);
             var checked = false;
             if (!value || !value.length)
@@ -1414,7 +1414,7 @@ COMPONENT('dropdowncheckbox', function() {
         values.html(label);
     };
 
-    self.state = function(type) {
+    self.state = function (type) {
         self.element.find('.ui-dropdowncheckbox').toggleClass('ui-dropdowncheckbox-invalid', self.isInvalid());
     };
 
@@ -1422,7 +1422,7 @@ COMPONENT('dropdowncheckbox', function() {
         return;
 
     window.$dropdowncheckboxevent = true;
-    $(document).on('click', function(e) {
+    $(document).on('click', function (e) {
         if (!window.$dropdowncheckboxelement)
             return;
         window.$dropdowncheckboxelement.addClass('hidden');
@@ -1430,7 +1430,7 @@ COMPONENT('dropdowncheckbox', function() {
     });
 });
 
-COMPONENT('audio', function() {
+COMPONENT('audio', function () {
     var self = this;
     var can = false;
     var volume = 0.5;
@@ -1439,13 +1439,13 @@ COMPONENT('audio', function() {
     self.readonly();
     self.singleton();
 
-    self.make = function() {
+    self.make = function () {
         var audio = document.createElement('audio');
         if (audio.canPlayType && audio.canPlayType('audio/mpeg').replace(/no/, ''))
             can = true;
     };
 
-    self.play = function(url, loop) {
+    self.play = function (url, loop) {
 
         if (!can)
             return;
@@ -1457,17 +1457,17 @@ COMPONENT('audio', function() {
         audio.loop = (loop) ? true : false;
         audio.play();
 
-        audio.onended = function() {
+        audio.onended = function () {
             audio.$destroy = true;
             self.cleaner();
         };
 
-        audio.onerror = function() {
+        audio.onerror = function () {
             audio.$destroy = true;
             self.cleaner();
         };
 
-        audio.onabort = function() {
+        audio.onabort = function () {
             audio.$destroy = true;
             self.cleaner();
         };
@@ -1476,7 +1476,7 @@ COMPONENT('audio', function() {
         return self;
     };
 
-    self.cleaner = function() {
+    self.cleaner = function () {
         var index = 0;
         while (true) {
             var item = self.items[index++];
@@ -1496,20 +1496,20 @@ COMPONENT('audio', function() {
         return self;
     };
 
-    self.stop = function(url) {
+    self.stop = function (url) {
         if (!url) {
-            self.items.forEach(function(item) {
-		console.log(item);
+            self.items.forEach(function (item) {
+                console.log(item);
                 item.$destroy = true;
             });
             return self.cleaner();
         }
 
-	var index = self.items.findIndex(function(item) {	
-		var pos = 0;
-		url.indexOf(item.src, pos);
-		if (pos > -1) return true;
-	});
+        var index = self.items.findIndex(function (item) {
+            var pos = 0;
+            url.indexOf(item.src, pos);
+            if (pos > -1) return true;
+        });
 
         if (index === -1)
             return self;
@@ -1517,7 +1517,7 @@ COMPONENT('audio', function() {
         return self.cleaner();
     };
 
-    self.setter = function(value) {
+    self.setter = function (value) {
 
         if (value === undefined)
             value = 0.5;
@@ -1538,7 +1538,7 @@ COMPONENT('audio', function() {
     };
 });
 //NATIFICATIONS
-COMPONENT('notifications', function() {
+COMPONENT('notifications', function () {
     var self = this;
     var autoclosing;
 
@@ -1547,11 +1547,11 @@ COMPONENT('notifications', function() {
     self.template = Tangular.compile('<div class="ui-notification {{ type }}" data-id="{{ id }}"{{ if callback }} style="cursor:pointer"{{ fi }}><i class="fa fa-times-circle"></i><div class="ui-notification-icon">{{if icon }}<i class="fa {{ icon }}"></i>{{fi}}{{if image }}{{ image | raw }}{{fi}}</div><div class="ui-notification-message"><div class="ui-notification-datetime">{{ date | format(\'{0}\') }}</div>{{ message | raw }}</div></div>'.format(self.attr('data-date-format') || 'yyyy-MM-dd HH:mm'));
     self.items = {};
 
-    self.make = function() {
+    self.make = function () {
 
         self.element.addClass('ui-notification-container');
 
-        self.element.on('click', '.fa-times-circle', function() {
+        self.element.on('click', '.fa-times-circle', function () {
             var el = $(this).closest('.ui-notification');
             self.close(+el.attr('data-id'));
             clearTimeout(autoclosing);
@@ -1559,11 +1559,11 @@ COMPONENT('notifications', function() {
             self.autoclose();
         });
 
-        self.element.on('click', 'a,button', function() {
+        self.element.on('click', 'a,button', function () {
             e.stopPropagation();
         });
 
-        self.element.on('click', '.ui-notification', function(e) {
+        self.element.on('click', '.ui-notification', function (e) {
             var el = $(this);
             var id = +el.attr('data-id');
             var obj = self.items[id];
@@ -1574,7 +1574,7 @@ COMPONENT('notifications', function() {
         });
     };
 
-    self.close = function(id) {
+    self.close = function (id) {
         var obj = self.items[id];
         if (!obj)
             return;
@@ -1583,12 +1583,12 @@ COMPONENT('notifications', function() {
         self.find('div[data-id="{0}"]'.format(id)).remove();
     };
     //icon, message, date
-    self.append = function(o, callback) {
+    self.append = function (o, callback) {
         type = (o.t) ? o.t : '';
         icon = (o.ic) ? 'fa-' + o.ic : null;
-        image = (o.im) ? "<img class='img-rounded img-responsive' src='"+o.im+"'>" : null;
-    
-        if (typeof(o.dt) === 'function') {
+        image = (o.im) ? "<img class='img-rounded img-responsive' src='" + o.im + "'>" : null;
+
+        if (typeof (o.dt) === 'function') {
             callback = o.d;
             o.d = null;
         }
@@ -1599,13 +1599,13 @@ COMPONENT('notifications', function() {
         self.autoclose();
     };
 
-    self.autoclose = function() {
-        console.log(self.attr('data-timeout'));  
+    self.autoclose = function () {
+        console.log(self.attr('data-timeout'));
 
         if (autoclosing)
             return self;
 
-        autoclosing = setTimeout(function() {
+        autoclosing = setTimeout(function () {
             clearTimeout(autoclosing);
             autoclosing = null;
             var el = self.find('.ui-notification');
@@ -1617,13 +1617,13 @@ COMPONENT('notifications', function() {
     };
 });
 
-COMPONENT('range', function() {
+COMPONENT('range', function () {
     var self = this;
     var required = self.attr('data-required');
 
     self.noValid();
 
-    self.make = function() {
+    self.make = function () {
         var name = self.html();
         if (name)
             name = '<div class="ui-range-label{1}">{0}</div>'.format(name, required ? ' ui-range-label-required' : '');
