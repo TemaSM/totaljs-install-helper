@@ -1,0 +1,33 @@
+{
+  "name": "totaljs-install-helper",
+  "version": "0.0.1",
+  "description": "Total.js installation helper provides you special step by step wizard for better and faster configuring new project",
+  "main": "release.js",
+  "dependencies": {
+    "total.js": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node release.js",
+    "debug": "node debug.js",
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TemaSM/totaljs-install-helper.git"
+  },
+  "keywords": [
+    "total.js",
+    "totaljs",
+    "framework",
+    "help",
+    "install",
+    "wizard"
+  ],
+  "author": "Tema Smirnov <Tema@Smirnov.one>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TemaSM/totaljs-install-helper/issues"
+  },
+  "homepage": "https://github.com/TemaSM/totaljs-install-helper#readme"
+}

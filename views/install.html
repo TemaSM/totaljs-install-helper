@@ -1,186 +1,226 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Установка</title>
-    @{view('res_main')}		    
-  </head>
-  <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-  <body class="skin-blue layout-top-nav">
-    <div class="wrapper">
 
-      <header class="main-header">
-        <nav class="navbar navbar-static-top">
-          <div class="container">
-            <div class="navbar-header">
-              <a href="/" class="navbar-brand">
-                Установка
+<head>
+	<meta charset="UTF-8">
+	<title>Installation</title>
+	@{view('res_main')}
+</head>
+<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+
+<body class="skin-blue layout-top-nav">
+	<div class="wrapper">
+
+		<header class="main-header">
+			<nav class="navbar navbar-static-top">
+				<div class="container">
+					<div class="navbar-header">
+						<a href="/" class="navbar-brand">
+                Installation
               </a>
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
               </button>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">                     
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/spravka.html">Справка</a></li>     
-                </ul>     
-            </div>
-          </div><!-- /.container-fluid -->
-        </nav>
-      </header>
-      <!-- Full Width Column -->
-      <div class="content-wrapper">
-	      <div class="container-fluid">                   
-        <section class="content">
-	       <div class="container">
-            <div class="row form-group" style='margin-top:50px;'>
-                  <div class="col-xs-12">
-                      <ul class="nav nav-pills nav-justified thumbnail setup-panel">
-                          <li class="active"><a href="#step-1">
-                              <h4 class="list-group-item-heading">ШАГ 1</h4>
-                              <p class="list-group-item-text">Настройка подключений к БД MySQL</p>
-                          </a></li>
-                          <li class="disabled"><a href="#step-2">
-                              <h4 class="list-group-item-heading">ШАГ 2</h4>
-                              <p class="list-group-item-text">Настройки почтового сервера</p>
-                          </a></li>                          
-                      </ul>
-                  </div>
-            </div>
-              <div class="row setup-content" id="step-1">
-                  <div class="col-xs-12">
-                      <div class="col-md-12 well">
-                          <h1 class='text-center'> ШАГ 1</h1>
-                          <h4 class='text-center'>Настройка подключений к БД MySQL</h4>
-                          <hr>
-                          <p>Пожалуйста, введите ваши параметры настройки MySQL на этой странице. Если вы обладаете правами Администратора вы можете создать новую БД, установив флажок. Если вам не нужно создавать БД или нужно использовать уже существующую, просто введите её название. Если вы не знаете ваши MySQL параметры, свяжитесь с техподдержкой вашего хостинг-провайдера для их уточнения.</p>
-                          <hr>
-                          <div class='col-md-12 center-block'>
-                            <form role="form" name="step1" id="step1" class="form-horizontal">          
-                              <table class="table table-hover table-striped table-bordered"> 
-                                <colgroup><col style="width:30%"><col style="width:40%"><col style="width:30%"></colgroup>  
-                                <tbody> 
-                                  <tr>
-                                    <td>MySQL сервер:</td>
-                                    <td><div data-component="textbox" data-component-path="db.host" data-placeholder="host" data-align="form-control validate[required, minSize[3],maxSize[50]]"></div></td>
-                                    <td>Сервер MySQL, предназначенный для использования системой.<td>
-                                  </tr>  
-                                  <tr>
-                                    <td>MySQL порт:</td>
-                                    <td><div data-component="textbox" data-component-path="db.port" data-component-value="3306" data-placeholder="port" data-align="form-control validate[required, minSize[3],maxSize[50]]"></div></td>
-                                    <td>Порт MySQL, предназначенный для использования системой. По умолчанию 3306<td>
-                                  </tr>
-                                  <tr>
-                                    <td>MySQL логин:</td>
-                                    <td><div data-component="textbox" data-component-path="db.user" data-placeholder="user" data-align="form-control validate[required, minSize[3],maxSize[50]]"></div></td>
-                                    <td>Имя пользователя, которое система е107 будет использовать для соединения с вашим сервером MySQL</td>
-                                  </tr>  
-                                  <tr>
-                                    <td>MySQL пароль:</td>
-                                    <td><div data-component="textbox" type="password" data-component-path="db.pass" data-placeholder="pass" data-align="form-control validate[minSize[3],maxSize[50]]"></div></td>
-                                    <td>Пароль, соответствующий имени пользователя, которое вы ввели выше</td>
-                                  </tr>                                  
-                                  <tr>
-                                    <td>MySQL База данных:</td>
-                                    <td><div data-component="textbox" data-component-path="db.name" data-placeholder="database" data-align="form-control validate[required, minSize[3],maxSize[50]]"></div>
-                                        <div class="checkbox">
-                                          <label>
+					</div>
+					<!--div class="collapse navbar-collapse" id="navbar-collapse">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="/help">Help</a></li>
+						</ul>
+					</div-->
+				</div>
+			</nav>
+		</header>
+		<!-- Full Width Column -->
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<section class="content">
+					<div class="container">
+						<div class="row form-group" style='margin-top:50px;'>
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified thumbnail setup-panel">
+									<li class="active">
+										<a href="#step-1">
+											<h4 class="list-group-item-heading">STEP 1</h4>
+											<p class="list-group-item-text">Настройка подключений к БД MySQL</p>
+										</a>
+									</li>
+									<li class="disabled">
+										<a href="#step-2">
+											<h4 class="list-group-item-heading">STEP 2</h4>
+											<p class="list-group-item-text">Настройки почтового сервера</p>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="row setup-content" id="step-1">
+							<div class="col-xs-12">
+								<div class="col-md-12 well">
+									<h1 class='text-center'> STEP 1</h1>
+									<h4 class='text-center'>Настройка подключений к БД MySQL</h4>
+									<hr>
+									<p>Пожалуйста, введите ваши параметры настройки MySQL на этой странице. Если вы обладаете правами Администратора вы
+										можете создать новую БД, установив флажок. Если вам не нужно создавать БД или нужно использовать уже существующую,
+										просто введите её название. Если вы не знаете ваши MySQL параметры, свяжитесь с техподдержкой вашего хостинг-провайдера
+										для их уточнения.</p>
+									<hr>
+									<div class='col-md-12 center-block'>
+										<form role="form" name="step1" id="step1" class="form-horizontal">
+											<table class="table table-hover table-striped table-bordered">
+												<colgroup>
+													<col style="width:30%">
+													<col style="width:40%">
+													<col style="width:30%">
+												</colgroup>
+												<tbody>
+													<tr>
+														<td>MySQL сервер:</td>
+														<td>
+															<div data-component="textbox" data-component-path="db.host" data-placeholder="host" data-align="form-control validate[required, minSize[3],maxSize[50]]"></div>
+														</td>
+														<td>Сервер MySQL, предназначенный для использования системой.
+															<td>
+													</tr>
+													<tr>
+														<td>MySQL порт:</td>
+														<td>
+															<div data-component="textbox" data-component-path="db.port" data-component-value="3306" data-placeholder="port" data-align="form-control validate[required, minSize[3],maxSize[50]]"></div>
+														</td>
+														<td>Порт MySQL, предназначенный для использования системой. По умолчанию 3306
+															<td>
+													</tr>
+													<tr>
+														<td>MySQL логин:</td>
+														<td>
+															<div data-component="textbox" data-component-path="db.user" data-placeholder="user" data-align="form-control validate[required, minSize[3],maxSize[50]]"></div>
+														</td>
+														<td>Имя пользователя, которое система е107 будет использовать для соединения с вашим сервером MySQL</td>
+													</tr>
+													<tr>
+														<td>MySQL пароль:</td>
+														<td>
+															<div data-component="textbox" type="password" data-component-path="db.pass" data-placeholder="pass" data-align="form-control validate[minSize[3],maxSize[50]]"></div>
+														</td>
+														<td>Пароль, соответствующий имени пользователя, которое вы ввели выше</td>
+													</tr>
+													<tr>
+														<td>MySQL База данных:</td>
+														<td>
+															<div data-component="textbox" data-component-path="db.name" data-placeholder="database" data-align="form-control validate[required, minSize[3],maxSize[50]]"></div>
+															<div class="checkbox">
+																<label>
                                               <div data-component="checkbox" data-component-path="db.create"> Создать базу данных?</div>
                                           </label>
-                                        </div>
-                                    </td>
-                                    <td>База данных MySQL, в которой вы хотите, чтобы находились таблицы системы, иногда называемая схемой. Если пользователь обладает правами создания базы данных, вы можете создать новую базу данных, установив соответствующий флажок.</td>
-                                  </tr>      
-                                </tbody>
-                              </table>
-                            </form>
-                          </div>                          
-                          <hr>
-                          <div class='text-center'>
-                            <div data-component="error" data-component-path="errors"></div>
-                            <h4><span data-component="" data-component-path="mess.db" class="label label-success"></span></h4>                            
-                            <button id="activate-step-2" class="btn btn-primary btn-flat btn-lg" @{!resource('spin')}>Перейти к следующему шагу</button>
-                          </div>  
-                      </div>
-                  </div>
-              </div>
-              <div class="row setup-content" id="step-2">
-                  <div class="col-xs-12">
-                      <div class="col-md-12 well">
-                          <h1 class="text-center"> ШАГ 2</h1>
-                          <h4 class='text-center'>Настройка почтового сервера</h4>
-                          <hr>
-                          <div class='col-md-12 center-block'>                            
-                              <form role="form" name="step2" id="step2" class="form-horizontal">
-                              <table class="table table-hover table-striped table-bordered"> 
-                                <colgroup><col style="width:30%"><col style="width:40%"><col style="width:30%"></colgroup>  
-                                <tbody> 
-                                  <tr>
-                                    <td>Mail SMTP сервер:</td>
-                                    <td><div data-component="textbox" data-component-path="mail.smtp.server" data-placeholder="mail smtp server" data-align="form-control validate[minSize[3],maxSize[50]]"></div></td>
-                                    <td>Mail SMTP сервер. Пример smtp.yourwebsite.com <td>
-                                  </tr>
-                                  <tr>
-                                    <td>Адрес отправителя</td>
-                                    <td><div data-component="textbox" data-component-path="mail.address.from" data-placeholder="address from" data-align="form-control validate[minSize[3],maxSize[50]]"></div></td>
-                                    <td>Mail SMTP сервер. Пример smtp.yourwebsite.com <td>
-                                  </tr>
-                                  <tr>
-                                    <td>Адрес для переадресации</td>
-                                    <td><div data-component="textbox" data-component-path="mail.address.reply" data-placeholder="address reply" data-align="form-control validate[minSize[3],maxSize[50]]"></div></td>
-                                    <td>Все отправленные письма будут дублироваться на данные адрес<td>
-                                  </tr>
-                                  <tr>
-                                    <td>SMTP дополнительные параметры:</td>
-                                    <td>          
-                                        <div class="checkbox"><label>
+															</div>
+														</td>
+														<td>База данных MySQL, в которой вы хотите, чтобы находились таблицы системы, иногда называемая схемой. Если пользователь
+															обладает правами создания базы данных, вы можете создать новую базу данных, установив соответствующий флажок.</td>
+													</tr>
+												</tbody>
+											</table>
+										</form>
+									</div>
+									<hr>
+									<div class='text-center'>
+										<div data-component="error" data-component-path="errors"></div>
+										<h4><span data-component="" data-component-path="mess.db" class="label label-success"></span></h4>
+										<button id="activate-step-2" class="btn btn-primary btn-flat btn-lg" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Wait...">Перейти к следующему шагу</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row setup-content" id="step-2">
+							<div class="col-xs-12">
+								<div class="col-md-12 well">
+									<h1 class="text-center"> STEP 2</h1>
+									<h4 class='text-center'>Настройка почтового сервера</h4>
+									<hr>
+									<div class='col-md-12 center-block'>
+										<form role="form" name="step2" id="step2" class="form-horizontal">
+											<table class="table table-hover table-striped table-bordered">
+												<colgroup>
+													<col style="width:30%">
+													<col style="width:40%">
+													<col style="width:30%">
+												</colgroup>
+												<tbody>
+													<tr>
+														<td>Mail SMTP сервер:</td>
+														<td>
+															<div data-component="textbox" data-component-path="mail.smtp.server" data-placeholder="mail smtp server" data-align="form-control validate[minSize[3],maxSize[50]]"></div>
+														</td>
+														<td>Mail SMTP сервер. Пример smtp.yourwebsite.com
+															<td>
+													</tr>
+													<tr>
+														<td>Адрес отправителя</td>
+														<td>
+															<div data-component="textbox" data-component-path="mail.address.from" data-placeholder="address from" data-align="form-control validate[minSize[3],maxSize[50]]"></div>
+														</td>
+														<td>Mail SMTP сервер. Пример smtp.yourwebsite.com
+															<td>
+													</tr>
+													<tr>
+														<td>Адрес для переадресации</td>
+														<td>
+															<div data-component="textbox" data-component-path="mail.address.reply" data-placeholder="address reply" data-align="form-control validate[minSize[3],maxSize[50]]"></div>
+														</td>
+														<td>Все отправленные письма будут дублироваться на данные адрес
+															<td>
+													</tr>
+													<tr>
+														<td>SMTP дополнительные параметры:</td>
+														<td>
+															<div class="checkbox"><label>
                                           <div data-component="checkbox" data-component-path="mail.smtp.options.secure"> Secure</div></label>
-                                        </div>
-                                        <div class="checkbox"><label>
+															</div>
+															<div class="checkbox"><label>
                                           <div data-component="checkbox" data-component-path="mail.smtp.options.rejectUnauthorized"> rejectUnauthorized</div></label>
-                                        </div>
-                                        <div class="form-group form-group-sm">         
-                                          <label class="col-sm-4  text-left">Порт</label>                  
-                                          <div class='col-sm-4' data-component="textbox" data-component-path="mail.smtp.options.port" data-placeholder="port" data-component-value="25" data-align="form-control col-sm-9 validate[onlyNumberSp, minSize[3],maxSize[50]]"></div>                     
-                                        </div>                                
-                                        <div class="form-group form-group-sm">                          
-                                          <label class="col-sm-4  text-left">User</label> 
-                                          <div class='col-sm-8' data-component="textbox" data-component-path="mail.smtp.options.user" data-placeholder="user" data-align="form-control col-sm-8 validate[minSize[3],maxSize[50]]"></div>                               
-                                        </div>                                
-                                        <div class="form-group form-group-sm">                   
-                                          <label class="col-sm-4  text-left">Password</label>        
-                                          <div class='col-sm-8' data-component="textbox" data-component-path="mail.smtp.options.password" data-placeholder="password" data-align="form-control col-sm-8 minSize[3],maxSize[50]]"></div>           
-                                        </div>                                
-                                        </td>
-                                    <td>Дополнительные параметры<td>
-                                  </tr>
-                                </tbody>
-                              </table>            
-                              </form>                                                        
-                          </div>         
-                          <hr>
-                          <div class='text-center'>
-                            <h4><span data-component="" data-component-path="mess.save" class="label label-success"></span></h4>                            
-                            <button id="activate-step-3" class="btn btn-primary btn-flat btn-lg" @{!resource('spin')}>Завершить настройки</button>
-                          </div>  
-                      </div>
-                  </div>
-              </div>              
-          </div>
-        </section>
-        </div>  
-      </div><!-- /.content-wrapper -->
-      <footer class="main-footer">
-        <div class="container-fluid">
-          <div class="pull-right hidden-xs"></div>
-          <strong>&copy; 2016 Все права защищены
+															</div>
+															<div class="form-group form-group-sm">
+																<label class="col-sm-4  text-left">Порт</label>
+																<div class='col-sm-4' data-component="textbox" data-component-path="mail.smtp.options.port" data-placeholder="port" data-component-value="25"
+																	data-align="form-control col-sm-9 validate[onlyNumberSp, minSize[3],maxSize[50]]"></div>
+															</div>
+															<div class="form-group form-group-sm">
+																<label class="col-sm-4  text-left">User</label>
+																<div class='col-sm-8' data-component="textbox" data-component-path="mail.smtp.options.user" data-placeholder="user" data-align="form-control col-sm-8 validate[minSize[3],maxSize[50]]"></div>
+															</div>
+															<div class="form-group form-group-sm">
+																<label class="col-sm-4  text-left">Password</label>
+																<div class='col-sm-8' data-component="textbox" data-component-path="mail.smtp.options.password" data-placeholder="password"
+																	data-align="form-control col-sm-8 minSize[3],maxSize[50]]"></div>
+															</div>
+														</td>
+														<td>Дополнительные параметры<td>
+													</tr>
+												</tbody>
+											</table>
+										</form>
+									</div>
+									<hr>
+									<div class='text-center'>
+										<h4><span data-component="" data-component-path="mess.save" class="label label-success"></span></h4>
+										<button id="activate-step-3" class="btn btn-primary btn-flat btn-lg" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Wait...">Завершить настройки</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer">
+			<div class="container-fluid">
+				<div class="pull-right hidden-xs"></div>
+				<strong>&copy; 2016
         </div><!-- /.container -->
       </footer>
     </div><!-- ./wrapper -->
     @{view('res_comp')}
   </body>
-  <script> 
-    //проверка подключения к серверу MySQL
+  <script>
     function setupDB(op, callback) {
       switch (op) {
         case 'check' : path = '/install/db/check/'; break; 
@@ -254,8 +294,8 @@
                         } 
               setupDB('import', function(res) {                                 
                 $(e).button('reset');                                             
-                if (!res) return false;  
-                //если все без проблиемм
+                if (!res) return false;
+
                 $('ul.setup-panel li:eq(1)').removeClass('disabled');
                 $('ul.setup-panel li a[href="#step-2"]').trigger('click');
                 $(e).remove();
@@ -263,14 +303,14 @@
             })
           });
       });
-      //активировать шаг 3
+			// Step 3
       $('#activate-step-3').on('click', function() {                        
         var e = this;
         $(e).button('loading');
         setupSave(function(res) {
           if (res) {
-            $(e).button('reset');                                                             
-            //если все без проблиемм
+            $(e).button('reset');
+
             $('ul.setup-panel li:eq(1)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-2"]').trigger('click');
             $(e).remove();                  
@@ -285,4 +325,3 @@
     });
   </script>
 </html>
-

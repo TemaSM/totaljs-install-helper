@@ -1,15 +1,11 @@
-// Model name
-//
+// TODO: WTF? Models is just for data-models, we should move contents of this file...
+
 exports.id = 'Settings';
-exports.version = '1.0';
+exports.version = '0.0.1';
 
 var Settings = NEWSCHEMA('Settings');
 var _this = this;
 
-/**
- * Клиентская сборка проекта
- * @self  {[Controller]} 
- */
 exports.scripts = function () {
     var p={ mn : {f: 'debug/main/',   t: 'app/main/'},
             ut : {f: 'debug/utilit/', t: 'app/utilit/'}
@@ -39,8 +35,8 @@ exports.scripts = function () {
     F.map(p.mn.t+'fonts', p.mn.f+'bootstrap/fonts/', ['.otf', '.eot', '.svg', '.ttf', '.woff', '.woff2']);
     F.map(p.mn.t+'fonts', p.mn.f+'font-awesome/fonts/', ['.otf', '.eot', '.svg', '.ttf', '.woff', '.woff2']);
     // UTILIT
-    F.merge(p.ut.t+'js/utilit.min.js',[p.ut.f+'validation/validation.js']);
-    F.merge(p.ut.t+'css/utilit.css', [p.ut.f+'validation/style.css']);
+    /*F.merge(p.ut.t+'js/utilit.min.js'  [p.ut.f+'validation/validation.js']);*/
+    /*F.merge(p.ut.t+'css/utilit.css' [p.ut.f+'validation/style.css']);*/
 
 }
 exports.Settings = Settings;

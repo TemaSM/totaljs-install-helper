@@ -1,12 +1,11 @@
-﻿var Settings = MODEL('Settings');
-F.on('load', function() {
-        //prepare script for browser    
+﻿'use strict';
+
+const Settings = MODEL('Settings');
+const InstallHelper = MODULE('install-helper');
+
+F.on('load', () => {	
 	Settings.scripts();
-	//check install
-	MODULE('install').check(function(res) {
-		if (res==true) {
-			//MODULE('shedule').start();
-			//MODEL('event').sync();
-		}
-	});		
-});             
+	InstallHelper.check(isConfigured => {
+		// console.log(isConfigured)
+	});
+});
