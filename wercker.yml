@@ -8,7 +8,7 @@ build:
     - npm-install
     # A step that executes `npm install mysql` command
     - npm-install:
-		  options: mysql
+        options: mysql
     # A step that executes `npm test` command
     - npm-test
 
